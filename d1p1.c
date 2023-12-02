@@ -36,7 +36,7 @@ int main() {
       break;
     }
 
-    int n = strlen(line);
+    int n = i + 1;
 
     int num = 0;
 
