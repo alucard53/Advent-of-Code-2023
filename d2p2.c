@@ -24,16 +24,6 @@ void seek(FILE *f, char c) {
   }
 }
 
-int possible(int n, char c) {
-  if (c == 'r') {
-    return n <= RED;
-  } else if (c == 'g') {
-    return n <= GREEN;
-  } else {
-    return n <= BLUE;
-  }
-}
-
 int max(int a, int b) {
   if (a > b) {
     return a;
@@ -44,7 +34,7 @@ int max(int a, int b) {
 int main() {
   FILE *f = fopen("input.txt", "r");
 
-  int id = 1, sum = 0;
+  int sum = 0;
   while (!feof(f)) {
     while (fgetc(f) != ':') {
     }
@@ -91,7 +81,6 @@ int main() {
 
     fgetc(f);
     printf("\n");
-    id++;
   }
 
   printf("sum = %d", sum);
