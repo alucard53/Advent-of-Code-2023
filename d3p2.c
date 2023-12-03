@@ -42,8 +42,8 @@ long long int check_adj_num(int i, int j, char input[ROW][COL]) {
 
     for (int x = 0; x < 8; x++) {
         int m = i + dir[x][0], n = j + dir[x][1];
-        if (m >= 0 && m < ROW && n >= 0 && n < COL
-            is_digit(input[m][n)) {
+        
+        if (m >= 0 && m < ROW && n >= 0 && n < COL && is_digit(input[m][n])) {
             if (count >= 2) {
                 return 0;
             }
