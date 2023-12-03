@@ -1,4 +1,4 @@
-# Advent-of-Code-2023
+# Advent-of-C(and Go when I'm lazy)-2023
 
 pain...
 
