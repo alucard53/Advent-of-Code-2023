@@ -41,11 +41,13 @@ long long int check_adj_num(int i, int j, char input[ROW][COL]) {
     int nums[2];
 
     for (int x = 0; x < 8; x++) {
-        if (is_digit(input[i + dir[x][0]][j + dir[x][1]])) {
+        int m = i + dir[x][0], n = j + dir[x][1];
+        if (m >= 0 && m < ROW && n >= 0 && n < COL
+            is_digit(input[m][n)) {
             if (count >= 2) {
                 return 0;
             }
-            nums[count++] = get_num(i + dir[x][0], j + dir[x][1], input);
+            nums[count++] = get_num(m, n, input);
         }
     }
 
