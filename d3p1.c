@@ -10,34 +10,25 @@ int is_digit(char c) { return '0' <= c && c <= '9'; }
 int is_symbol(char c) { return !is_digit(c) && c != '.'; }
 
 int check_adj_symbol(int i, int j, char input[ROW][COL]) {
-    if (i - 1 >= 0 && is_symbol(input[i - 1][j])) { // top
-        return 1;
+    int count = 0, dir[][2] = {
+                       {-1, 0},  // top
+                       {-1, -1}, // top left
+                       {0, -1},  // left
+                       {1, -1},  // bottom left
+                       {1, 0},   // bottom
+                       {1, 1},   // bottom right
+                       {0, 1},   // right
+                       {-1, 1},  // top right
+                   };
+
+    for (int k = 0; k < 9; k++) {
+        int m = i + dir[k][0], n = j + dir[k][1];
+
+        if (m >= 0 && m < ROW && n >= 0 && n < COL && is_symbol(input[m][n])) {
+            return 1;
+        }
     }
-    if (i - 1 >= 0 && j - 1 >= 0 &&
-        is_symbol(input[i - 1][j - 1])) { // top left
-        return 1;
-    }
-    if (j - 1 >= 0 && is_symbol(input[i][j - 1])) { // left
-        return 1;
-    }
-    if (i + 1 < ROW && j - 1 >= 0 &&
-        is_symbol(input[i + 1][j - 1])) { // bottom left
-        return 1;
-    }
-    if (i + 1 < ROW && is_symbol(input[i + 1][j])) { // bottom
-        return 1;
-    }
-    if (i + 1 < ROW && j + 1 < COL &&
-        is_symbol(input[i + 1][j + 1])) { // bottom right
-        return 1;
-    }
-    if (j + 1 < COL && is_symbol(input[i][j + 1])) { // right
-        return 1;
-    }
-    if (i - 1 >= 0 && j + 1 < COL &&
-        is_symbol(input[i - 1][j + 1])) { // top right
-        return 1;
-    }
+
     return 0;
 }
 
