@@ -18,24 +18,26 @@ int get_num(int i, int j, char input[ROW][COL]) {
 
     while (j < COL && is_digit(input[i][++j])) {
         num = num * 10 + (input[i][j] - '0');
-        input[i][j] = '.'; // the same number might span two+ adjacents positions of a *
+        // input[i][j] = '.'; // the same number might span two+ adjacents positions of a *
                            // so mark a number with a . after reading it
                            // wouldn't have worked if the same number was shared by 2 *s but lmao
+        // update: changed order of checking adjacencies and added skipping logic
     }
     return num;
 }
 
 long long int check_adj_num(int i, int j, char input[ROW][COL]) {
-
     int count = 0, dir[][2] = {
-                       {-1, 0},  // top
                        {-1, -1}, // top left
-                       {0, -1},  // left
+                       {-1, 0},  // top
+                       {-1, 1},  // top right
+
                        {1, -1},  // bottom left
                        {1, 0},   // bottom
                        {1, 1},   // bottom right
+
+                       {0, -1},  // left
                        {0, 1},   // right
-                       {-1, 1},  // top right
                    };
 
     int nums[2];
@@ -48,6 +50,14 @@ long long int check_adj_num(int i, int j, char input[ROW][COL]) {
                 return 0;
             }
             nums[count++] = get_num(m, n, input);
+            while (0 <= x && x <= 1 || 3 <= x && x <= 4) {
+                x++;
+                m = i + dir[x][0];
+                n = j + dir[x][1];
+                if (!is_digit(input[m][n])) {
+                    break;
+                }
+            }
         }
     }
 
@@ -55,6 +65,7 @@ long long int check_adj_num(int i, int j, char input[ROW][COL]) {
         return nums[0] * nums[1];
     }
     return 0;
+
 }
 
 int main() {
