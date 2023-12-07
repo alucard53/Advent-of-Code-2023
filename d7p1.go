@@ -39,8 +39,7 @@ func (h Hands) Less(i int, j int) bool {
 	if h[i].strength == h[j].strength {
 		for c := 0; c < 5; c++ {
 			if h[i].cards[c] != h[j].cards[c] {
-				l := chars[h[i].cards[c]] < chars[h[j].cards[c]]
-				return l
+				return chars[h[i].cards[c]] < chars[h[j].cards[c]]
 			}
 		}
 	}
@@ -60,7 +59,6 @@ func getStrength(hand string) int {
 	for _, count := range cards {
 		counts[count]++
 	}
-	fmt.Println(counts)
 
 	if counts[5] == 1 {
 		return 7
@@ -105,7 +103,6 @@ func main() {
 
 	var winnings int64 = 0
 	for i, h := range hands {
-		fmt.Println(h.cards, h.bid, h.strength, (i + 1), int64(i+1)*int64(h.bid))
 		winnings += (int64(i+1) * int64(h.bid))
 	}
 	fmt.Println("Winnnings =", winnings)
