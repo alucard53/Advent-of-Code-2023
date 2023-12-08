@@ -1,55 +1,51 @@
 use std::collections::HashMap;
 use std::fs;
-use std::mem::{drop, take};
+use std::mem::drop;
 
 // removed whitespaces, brackets, equal, signs and commas from input(vim hax)
-//
-fn is_start(s: &String) -> bool {
+
+fn is_start(s: &str) -> bool {
     s.chars().last() == Some('A')
 }
-fn is_end(s: &String) -> bool {
+fn is_end(s: &str) -> bool {
     s.chars().last() == Some('Z')
 }
 
-fn get_loop<'a>(map: &'a HashMap<String, [String; 2]>, dirs: &String, mut pos: &'a String) -> i32 {
+fn get_loop<'a>(map: &'a HashMap<&'a str, [&'a str; 2]>, dirs: &'a str, mut pos: &'a str) -> i32 {
     let mut moves = 0;
-    while !is_end(pos) {
+    loop {
         for i in dirs.chars() {
             if i == 'L' {
-                pos = &map.get(pos).unwrap()[0];
+                pos = map.get(pos).unwrap()[0];
             } else {
                 pos = &map.get(pos).unwrap()[1];
             }
-            if is_end(pos) {
-                println!("{:?}", pos);
-            }
             moves += 1;
+            if is_end(pos) {
+                return moves;
+            }
         }
     }
-    moves
 }
 
 fn main() {
-    let input: Vec<String> = fs::read_to_string("input.txt")
-        .unwrap()
-        .lines()
-        .map(|a| a.to_string())
-        .collect();
+    let content = fs::read_to_string("input.txt").unwrap();
+    let input: Vec<&str> = content.lines().collect();
 
-    let dirs = input[0].clone();
+    let dirs = input[0];
 
-    let mut map: HashMap<String, [String; 2]> = HashMap::new();
+    let mut map: HashMap<&str, [&str; 2]> = HashMap::new();
 
-    let mut pos: Vec<String> = Vec::new();
+    let mut pos: Vec<&str> = Vec::new();
 
     for i in 2..input.len() {
-        let line: Vec<String> = (&input[i]).split(" ").map(|i| i.to_string()).collect();
+        let line: Vec<&str> = (&input[i]).split(" ").collect();
 
         if is_start(&line[0]) {
-            pos.push(line[0].clone());
+            pos.push(line[0]);
         }
 
-        map.insert(line[0].clone(), [line[1].clone(), line[2].clone()]);
+        map.insert(line[0], [line[1], line[2]]);
     }
 
     drop(input);
