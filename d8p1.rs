@@ -20,14 +20,11 @@ fn main() {
     let mut moves: usize = 0;
 
     while pos != "ZZZ" {
-        for i in dirs.chars() {
-            if i == 'L' {
-                pos = &map.get(pos).unwrap()[0];
-            } else {
-                pos = &map.get(pos).unwrap()[1];
-            }
-            moves += 1;
-        }
+        dirs.chars().for_each(|c| match c {
+            'L' => pos = &map.get(pos).unwrap()[0],
+            _ => pos = &map.get(pos).unwrap()[1],
+        });
+        moves += 1;
     }
     println!("{moves}");
 }
