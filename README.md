@@ -1,4 +1,4 @@
-# Advent-of-C(and Go when I'm lazy)-2023
+# Laziest AOC 2023 solutions
 
 pain...
 
