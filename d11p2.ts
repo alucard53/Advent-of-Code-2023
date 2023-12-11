@@ -38,11 +38,8 @@ for (let i = 0; i < input.length; i++) {
                         let x1 = Math.max(x, y)
                         let x2 = Math.min(x, y)
 
-                        let g = getEmpty(emptyRows, i, j) * 1000000
-                        let f = getEmpty(emptyCols, x2, x1) * 1000000
-
-                        g = g === 0 ? 0 : g - (g / 1000000);
-                        f = f === 0 ? 0 : f - (f / 1000000);
+                        let g = getEmpty(emptyRows, i, j) * 999999
+                        let f = getEmpty(emptyCols, x2, x1) * 999999
 
                         sum += (j + g - i) + (x1 + f - x2)
                     }
