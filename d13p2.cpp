@@ -43,8 +43,7 @@ int main() {
                     break;
                 }
             }
-            std::cout << mirror << "\n";
-            if (dif == 1 and mirror) {
+            if (mirror and dif == 1) {
                 sum += i + 1;
                 break;
             }
@@ -69,7 +68,7 @@ int main() {
                     break;
                 }
             }
-            if (dif == 1 and mirror) {
+            if (mirror and dif == 1) {
                 sum += (i + 1) * 100;
                 break;
             }
