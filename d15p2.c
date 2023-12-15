@@ -19,6 +19,11 @@ struct Node *new(const char *label, int focus) {
     return new;
 }
 
+void del(struct Node *head) {
+    free(head->label);
+    free(head);
+}
+
 int hash(const char *s) {
     int curr_val = 0;
     for (int i = 0; i < (int)strlen(s); i++) {
@@ -30,7 +35,6 @@ int hash(const char *s) {
 int main() {
     FILE *f = fopen("input.txt", "r");
 
-    // int sum = 0;
     struct Node *boxes[256];
 
     memset(boxes, 0, 256 * sizeof(long));
@@ -57,13 +61,16 @@ int main() {
             if (head) {
                 if (!strcmp(head->label, label)) {
                     boxes[box] = head->next;
+                    del(head);
                 } else {
                     while (head->next && strcmp(head->next->label, label)) {
                         head = head->next;
                     }
-                }
-                if (head->next) {
-                    head->next = head->next->next;
+                    if (head->next) {
+                        struct Node *temp = head->next;
+                        head->next = head->next->next;
+                        del(temp);
+                    }
                 }
             }
         } else {
@@ -104,8 +111,7 @@ int main() {
             while (head != NULL) {
                 struct Node *temp = head->next;
                 sum += (i + 1) * (j++) * head->focus;
-                free(head->label);
-                free(head);
+                del(head);
                 head = temp;
             }
         }
