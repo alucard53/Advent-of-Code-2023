@@ -52,12 +52,14 @@ def traverse(grid: List[List[str]], vis: List[List[bool]], splits: List[List[boo
         i += directions[dir][0]
         j += directions[dir][1]
 
-with open('input.txt') as fin:
-    grid = [list(i) for i  in fin.read().strip().split('\n')]
 
-    vis = [[False] * len(grid[0]) for _ in range(len(grid))]
-    splits = [[False] * len(grid[0]) for _ in range(len(grid))]
-
-    traverse(grid, vis, splits, 0, 0, 'r')
-
-    print(count)
+if __name__ == '__main__:
+    with open('input.txt') as fin:
+        grid = [list(i) for i  in fin.read().strip().split('\n')]
+    
+        vis = [[False] * len(grid[0]) for _ in range(len(grid))]
+        splits = [[False] * len(grid[0]) for _ in range(len(grid))]
+    
+        traverse(grid, vis, splits, 0, 0, 'r')
+    
+        print(count)
