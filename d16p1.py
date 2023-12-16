@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 directions = {
     'l': [0, -1],
@@ -8,7 +8,7 @@ directions = {
 }
 
 count = 0
-def traverse(grid: List[List[str]], vis: List[List[bool]], splits: List[List[bool]], i: int, j: int, dir: str):
+def traverse(grid: List[List[str]], vis: List[List[bool]], splits: set[Tuple[int, int]], i: int, j: int, dir: str):
     global count
 
     while 0 <= i and i < len(grid) and 0 <= j  and j < len(grid[0]):
@@ -17,15 +17,15 @@ def traverse(grid: List[List[str]], vis: List[List[bool]], splits: List[List[boo
         vis[i][j] = True
             
         if grid[i][j] == '|' and (dir == 'l' or dir == 'r'):
-            if splits[i][j]:
+            if splits.__contains__((i, j)):
                 return
-            splits[i][j] = True
+            splits.add((i, j))
             traverse(grid, vis, splits, i - 1, j, 'u')
             dir = 'd'
         elif (grid[i][j] == '-' and (dir == 'u' or dir == 'd')):
-            if splits[i][j]:
+            if splits.__contains__((i, j)):
                 return
-            splits[i][j] = True
+            splits.add((i, j))
             traverse(grid, vis, splits, i, j + 1, 'r')
             dir = 'l'
         elif grid[i][j] == '\\':
@@ -52,13 +52,12 @@ def traverse(grid: List[List[str]], vis: List[List[bool]], splits: List[List[boo
         i += directions[dir][0]
         j += directions[dir][1]
 
-
-if __name__ == '__main__:
+if __name__ == '__main__':
     with open('input.txt') as fin:
         grid = [list(i) for i  in fin.read().strip().split('\n')]
-    
+
     vis = [[False] * len(grid[0]) for _ in range(len(grid))]
-    splits = [[False] * len(grid[0]) for _ in range(len(grid))]
+    splits = set()
 
     traverse(grid, vis, splits, 0, 0, 'r')
 
