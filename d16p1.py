@@ -57,9 +57,9 @@ if __name__ == '__main__:
     with open('input.txt') as fin:
         grid = [list(i) for i  in fin.read().strip().split('\n')]
     
-        vis = [[False] * len(grid[0]) for _ in range(len(grid))]
-        splits = [[False] * len(grid[0]) for _ in range(len(grid))]
-    
-        traverse(grid, vis, splits, 0, 0, 'r')
-    
-        print(count)
+    vis = [[False] * len(grid[0]) for _ in range(len(grid))]
+    splits = [[False] * len(grid[0]) for _ in range(len(grid))]
+
+    traverse(grid, vis, splits, 0, 0, 'r')
+
+    print(count)
